@@ -1,16 +1,20 @@
-package stringutils
+package stringutils_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/josa42/go-stringutils"
+)
 
 func TestTrimPrefix(t *testing.T) {
 
-	str1 := TrimPrefix("")
+	str1 := stringutils.TrimPrefix("")
 
 	if str1 != "" {
 		t.Error("TrimPrefix() should no nothing on empty string")
 	}
 
-	str2 := TrimPrefix(`
+	str2 := stringutils.TrimPrefix(`
 		Foo
 	`)
 
@@ -18,7 +22,7 @@ func TestTrimPrefix(t *testing.T) {
 		t.Error("TrimPrefix() should strip prefix")
 	}
 
-	str3 := TrimPrefix(`
+	str3 := stringutils.TrimPrefix(`
 		{
 		  "Foo": "bar"
 		}
@@ -31,7 +35,7 @@ func TestTrimPrefix(t *testing.T) {
 }
 
 func TestTrimLeadingTabs(t *testing.T) {
-	str1 := TrimLeadingTabs(`
+	str1 := stringutils.TrimLeadingTabs(`
 		{
 		  "Foo": "bar"
 		}
@@ -43,7 +47,7 @@ func TestTrimLeadingTabs(t *testing.T) {
 }
 
 func TestRemoveSurroundingEmptyLines(t *testing.T) {
-	str1 := RemoveSurroundingEmptyLines(`
+	str1 := stringutils.RemoveSurroundingEmptyLines(`
 		Foo
 		Bar
 
