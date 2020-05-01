@@ -1,6 +1,9 @@
 package stringutils_test
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"testing"
 
 	"github.com/josa42/go-stringutils"
@@ -57,4 +60,26 @@ func TestRemoveSurroundingEmptyLines(t *testing.T) {
 	if str1 != "\t\tFoo\n\t\tBar" {
 		t.Error("RemoveSurroundingEmptyLines() should remove all sourrounding empty lines")
 	}
+}
+
+func TestWrap(t *testing.T) {
+
+	cases := []struct {
+		Should string
+		Text   string
+		Width  int
+		Assert string
+	}{}
+
+	data, _ := ioutil.ReadFile("./testdata/wrap.json")
+	json.Unmarshal(data, &cases)
+
+	for _, c := range cases {
+		wrapped := stringutils.Wrap(c.Text, c.Width)
+		if wrapped != c.Assert {
+			fmt.Printf("====\n%s\n===\n%s\n====\n", wrapped, c.Assert)
+			t.Errorf("Wrap() Should %s", c.Should)
+		}
+	}
+
 }

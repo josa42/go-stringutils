@@ -1,0 +1,21 @@
+[{
+  "should": "not wrap empty text",
+  "text": "",
+  "width": 80,
+  "assert": ""
+},{
+  "should": "not wrap exact length text",
+  "text": "Lorem ipsu",
+  "width": 10,
+  "assert": "Lorem ipsu"
+},{
+  "should": "wrap text",
+  "text": "Lorem ipsum",
+  "width": 10,
+  "assert": "Lorem\nipsum"
+},{
+  "should": "wrap text and don't add extra new line",
+  "text": "Lorem ipsu lorem ipsu",
+  "width": 10,
+  "assert": "Lorem ipsu\nlorem ipsu"
+}]

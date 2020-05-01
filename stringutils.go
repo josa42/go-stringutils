@@ -3,6 +3,7 @@ package stringutils
 import (
 	"regexp"
 	"strings"
+	"unicode/utf8"
 )
 
 func min(x, y int) int {
@@ -57,6 +58,38 @@ func RemoveSurroundingEmptyLines(str string) string {
 	}
 
 	return strings.Join(lines, "\n")
+}
+
+func Wrap(text string, width int) string {
+	lines := []string{}
+
+	for _, line := range strings.Split(text, "\n") {
+
+		if utf8.RuneCountInString(line) > width {
+			words := strings.Split(line, " ")
+
+			l := ""
+			for len(words) > 0 {
+				next := strings.TrimSpace(l + " " + words[0])
+
+				if utf8.RuneCountInString(next) > width {
+					lines = append(lines, l)
+					l = ""
+				} else {
+					l = next
+					words = words[1:]
+				}
+			}
+			lines = append(lines, l)
+		} else {
+			lines = append(lines, line)
+		}
+	}
+
+	// os.Exit(0)
+
+	return strings.Join(lines, "\n")
+
 }
 
 func countLeadingSpaces(line string) int {
